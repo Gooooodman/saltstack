@@ -18,7 +18,6 @@ mysql_auth:
 #       - PASSWD=`date +'%s' | md5sum`;PASSWD=${PASSWD:0:8}; mkdir -p /data/save/ && echo ${PASSWD} > /data/save/mysql_root
 
 
-
 mysql_service:  
   file.managed:
     - name: /etc/init.d/mysqld
@@ -30,13 +29,6 @@ mysql_service:
       - /sbin/chkconfig --add mysqld
       - /sbin/chkconfig  mysqld on 
     - unless: /sbin/chkconfig --list mysqld
-  service.running:     #mysql是启动状态
-    - name: mysqld
-    - enable: True
-    - reload: True
-    - watch:
-      - file: /etc/my.cnf
-
 
 
 mysql_install:
@@ -47,6 +39,18 @@ mysql_install:
       - file: mysql_service
       - file: mysql_auth
 #      - cmd: mysql_set_pass
+
+
+
+mysql_reload:
+  service.running:     #mysql是启动状态
+    - name: mysqld
+    - enable: True
+    - reload: True
+    - watch:
+      - file: /etc/my.cnf
+
+
 
 
 
