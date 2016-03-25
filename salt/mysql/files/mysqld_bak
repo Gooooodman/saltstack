@@ -1,0 +1,73 @@
+#!/bin/bash
+# mysql 5.5.46 
+# 
+#mysqld start mysqld daemon for port 3306
+
+#chkconfig: 345 81 02
+
+
+#mysql开关脚本 writed by yyr lpx
+
+. /etc/rc.d/init.d/functions
+
+defaults_file="/etc/my.cnf"
+pid_file="/data/mysql_data/mysqld.pid"
+auth_file="/data/save/mysql_root"
+user="root"
+passwd=`cat $auth_file`
+mysql_ip="127.0.0.1"
+localport="3306"
+
+################################定义函数 ###################################
+function start_mysql {
+ [ ! -f "$defaults_file" ] && { echo "there are no mysql config file $defaults_file";exit 1; }
+ expect<<EOF
+ spawn /usr/local/mysql/bin/mysqld_safe --defaults-file=$defaults_file
+ expect "mysqld_safe Starting mysqld daemon with databases from"
+ send " "
+EOF
+ for ((i=1;i<=60;i++));do
+   sleep 1
+   pgrep -f "defaults-file=$defaults_file" >/dev/null && break
+   [ "$i" = 60 ] && { echo 开启mysql 实例:$defaults_file失败;exit 1; }
+ done
+}
+
+function stop_mysql {
+ /usr/local/mysql/bin/mysqladmin -u${user} -p${passwd} -h${mysql_ip} -P${localport} shutdown 
+ for ((i=1;i<=60;i++));do
+   sleep 1
+   pgrep -f "defaults-file=$defaults_file" >/dev/null || break
+   [ "$i" = 60 ] && { echo 关闭mysql 实例:$defaults_file失败;exit 1; }
+ done
+
+}
+
+function restart_mysql {
+ stop_mysql
+ start_mysql
+}
+
+function rh_status {
+ status -p $pid_file mysqld-deamon
+}
+
+function print_error {
+ printf "\033[31;1musage $0 <start|stop|restart|status>\033[0m\n"
+ exit 1
+}
+##############################执行主体######################################
+real_dir=$(dirname `/usr/sbin/lsof -p $$ | gawk '$4 =="255r"{print $NF}'`)
+cd $real_dir
+
+
+
+
+  case $1 in
+  start) start_mysql;;
+  stop) stop_mysql;;
+  restart) restart_mysql;;
+  status) rh_status;;
+  *) print_error;;
+  esac
+
