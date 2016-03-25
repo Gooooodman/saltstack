@@ -82,7 +82,7 @@ mysql_compile:
   cmd.run:
     - cwd: /tmp/mysql-5.5.46
     - names:
-      - cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DWITH_SSL=yes -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_MYISAM_STORAGE_ENGINE=1  -DWITH_DEBUG=0 -DENABLED_LOCAL_INFILE=1 -DMYSQL_DATADIR=/usr/local/mysql/data/  && make -j  {{grains['num_cpus']}} && make install && echo "PATH=/usr/local/mysql/bin:$PATH" >> /etc/profile && export PATH=$PATH:/usr/local/mysql/bin && /bin/cp -r -p /usr/local/mysql/bin/* /usr/bin/
+      - cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DWITH_SSL=yes -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_MYISAM_STORAGE_ENGINE=1  -DWITH_DEBUG=0 -DENABLED_LOCAL_INFILE=1 -DMYSQL_DATADIR=/usr/local/mysql/data/  && make -j  {{grains['num_cpus']}} && make install && /bin/cp -r -p /usr/local/mysql/bin/* /usr/bin/
     - require:
       - cmd: extract_mysql
       - pkg: mysql_pkg
