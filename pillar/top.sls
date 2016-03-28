@@ -1,5 +1,3 @@
 base:
   'salt-minion':
-    - vhost 
-  'salt-master':
-    - vhost
+    - nginx.vhost 
