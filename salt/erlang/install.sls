@@ -8,7 +8,7 @@ erlang_install_sh:
   file.managed:
     - name: /root/erlang_install.sh
     - mode: 755
-    - source: salt://erlang/file/erlang_install.sh
+    - source: salt://erlang/files/erlang_install.sh
     - unless: test -e /root/erlang_install.sh
 
 
