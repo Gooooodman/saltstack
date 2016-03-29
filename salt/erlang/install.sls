@@ -11,6 +11,14 @@ erlang_source:
 
 
 erlang_install:
+
+  pkg.installed:
+    - pkgs:
+      - byacc
+      - unixODBC-devel
+      - unixODBC
+
+
   cmd.run:
     - cwd: /tmp/otp_src_R16B03-1
     - names:
