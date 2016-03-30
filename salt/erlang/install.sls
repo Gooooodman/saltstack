@@ -12,15 +12,15 @@ erlang_install_sh:
     - unless: test -e /root/erlang_install.sh
 
 
-
-# shell  install
-erlang_install:
-  cmd.run:
-    - cwd: /root
-    - name: bash erlang_install.sh
-    - require:
-      - file: erlang_install_sh
-      - file: erlang_source
+#目前salt 执行会失败
+# # shell  install
+# erlang_install:
+#   cmd.run:
+#     - cwd: /root
+#     - name: bash erlang_install.sh
+#     - require:
+#       - file: erlang_install_sh
+#       - file: erlang_source
 
 
 
