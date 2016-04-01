@@ -2,8 +2,8 @@
 vhost:
   {% if 'salt-minion' in grains['id'] %} 
   - name: www 
-    target: /usr/local/nginx/conf/vhosts/vhost_www.conf
+    target: /usr/local/services/nginx/conf/conf.d/vhost_www.conf
   {% else %}
   - name: bbs
-    target: /usr/local/nginx/conf/vhosts/vhost_bbs.conf
+    target: /usr/local/services/nginx/conf/conf.d/vhost_bbs.conf
   {% endif %}

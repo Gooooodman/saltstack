@@ -67,17 +67,17 @@ nginx_compile:
   cmd.run:
     - cwd: /tmp/nginx-1.6.3
     - names:
-      - sed -i 's#CFLAGS="$CFLAGS -g"#CFLAGS="$CFLAGS "#' auto/cc/gcc && CHOST="x86_64-pc-linux-gnu" CFLAGS="-O3" CXX=gcc CXXFLAGS="-O3 -felide-constructors -fno-exceptions -fno-rtti" && ./configure --prefix=/usr/local/nginx  --with-http_addition_module --user=nginx --with-http_realip_module --with-poll_module --with-select_module --group=nginx  --with-http_gzip_static_module --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module  --with-pcre=/tmp/pcre-8.38 && make && make install
+      - sed -i 's#CFLAGS="$CFLAGS -g"#CFLAGS="$CFLAGS "#' auto/cc/gcc && CHOST="x86_64-pc-linux-gnu" CFLAGS="-O3" CXX=gcc CXXFLAGS="-O3 -felide-constructors -fno-exceptions -fno-rtti" && ./configure --prefix=/usr/local/services/nginx  --with-http_addition_module --user=nginx --with-http_realip_module --with-poll_module --with-select_module --group=nginx  --with-http_gzip_static_module --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module  --with-pcre=/tmp/pcre-8.38 && make && make install
     - require:
       - cmd: extract_nginx
       - pkg: nginx_pkg
-    - unless: test -d /usr/local/nginx
+    - unless: test -d /usr/local/services/nginx
 
 #cache_dir
 cache_dir:
   cmd.run:
     - names:
-      - chown -R nginx.nginx /usr/local/nginx/ && mkdir -p /usr/local/nginx/conf/vhosts
+      - chown -R nginx.nginx /usr/local/services/nginx/ && mkdir -p /usr/local/services/nginx/conf/conf.d
     - require:
       - cmd: nginx_compile
 

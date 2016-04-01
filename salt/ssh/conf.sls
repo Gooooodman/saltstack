@@ -2,6 +2,8 @@ include:
   - ssh.install
 
 ssh_key:
+  cmd.run:
+    - names: mkdir /root/.ssh
   file.managed:
     - name: /root/.ssh/authorized_keys
     - source: salt://ssh/files/authorized_keys

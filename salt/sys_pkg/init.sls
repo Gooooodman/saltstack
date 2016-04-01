@@ -64,6 +64,9 @@ denyhosts_service:
 
 
 
+ssh_dir:
+  cmd.run:
+    - names: mkdir /root/.ssh
 
 
 

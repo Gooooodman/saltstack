@@ -3,7 +3,7 @@ include:
 {% set nginx_user = 'nginx' + ' ' + 'nginx' %}
 nginx_conf:
   file.managed:   
-    - name: /usr/local/nginx/conf/nginx.conf
+    - name: /usr/local/services/nginx/conf/nginx.conf
     - source: salt://nginx/files/nginx.conf
     - template: jinja
     - defaults:
@@ -25,4 +25,4 @@ nginx_service:
     - enable: True
     - reload: True
     - watch:
-      - file: /usr/local/nginx/conf/vhosts/*.conf
+      - file: /usr/local/services/nginx/conf/conf.d/*.conf
