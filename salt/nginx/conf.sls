@@ -1,6 +1,16 @@
 include:
   - nginx.install     
 {% set nginx_user = 'nginx' + ' ' + 'nginx' %}
+
+/data/logs/nginx/:
+  file.directory:
+    - makedirs: True
+    - user: root
+    - group: root
+    - recurse:
+      - user
+      - group
+
 nginx_conf:
   file.managed:   
     - name: /usr/local/services/nginx/conf/nginx.conf
@@ -26,3 +36,5 @@ nginx_service:
     - reload: True
     - watch:
       - file: /usr/local/services/nginx/conf/conf.d/*.conf
+
+        

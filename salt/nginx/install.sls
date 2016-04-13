@@ -18,7 +18,7 @@ extract_nginx:
     - cwd: /tmp
     - names:
       - tar -xf nginx-1.6.3.tar.gz -C /tmp
-   - unless: test -d /tmp/nginx-1.6.3
+   # - unless: test -f /tmp/nginx-1.6.3.tar.gz
     - require:
       - file: nginx_source
 
@@ -28,7 +28,7 @@ extract_pcre:
     - cwd: /tmp
     - names:
       - tar -xf pcre-8.38.tar.gz -C /tmp
-    - unless: test -d /tmp/pcre-8.38
+#    - unless: test -f /tmp/pcre-8.38.tar.gz
     - require:
       - file: pcre_source
 
@@ -51,6 +51,17 @@ nginx_pkg:
       - gcc-c++
       - zlib-devel
 
+
+#pcre_compile
+#pcre_compile:
+#  cmd.run:
+#    - cwd: /tmp/pcre-8.38
+#    - names:
+#      - ./configure --prefix=/usr/local/pcre && make && make install
+#    - require:
+#      - cmd: extract_pcre
+#    - unless: test -d /usr/local/pcre
+#
 #nginx_compile
 nginx_compile:
   cmd.run:
