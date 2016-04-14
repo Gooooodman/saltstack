@@ -1,0 +1,10 @@
+mysql:
+  ports:
+    - 3309
+    - 3310
+    - 3311
+  version:  '5_5_25'
+  mysql_user: root
+  mysql_password: 123456
+  mysql_dir: /usr/local/mysql
+  mysqldata_dir: /data/database/mysql
