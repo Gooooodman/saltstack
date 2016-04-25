@@ -21,6 +21,8 @@ base_pkg:
       - ncurses-devel.x86_64 
       - ntpdate
 
+Development tools:
+  pkg.group_installed
 
 sysctl:  
   file.managed:
